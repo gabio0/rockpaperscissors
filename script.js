@@ -1,53 +1,60 @@
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const score = document.querySelector('.score');
+let playerScore = 0;
+let computerScore = 0;
+let tieGames = 0;
+
+function myFunction() {
+    alert ("Hello World!");
+  }
+
 function computerPlay() {
     let i = Math.floor(Math.random() * 3) + 1;
     if (i === 1) {
-        return 'Rock';
+        return 'rock';
     }
     else if (i === 2) {
-        return 'Paper';
+        return 'paper';
     }
     else (i === 3)
-        return 'Scissors';
+        return 'scissors';
 }
 
-function gameResult(player, computer) {
-    if (player === computer) {
-        return 'It\'s a TIE! ' + player + ' bumps into ' + computer;
+function playRound(playerSelection){
+    let computerSelection = computerPlay();
+    if (playerSelection == computerSelection) {
+        tieGames++;
     }
-    else if (player === 'rock' && computer === 'scissors' ||
-            player === 'scissors' && computer === 'paper' ||
-            player === 'paper' && computer === 'rock') {
-        return 'Player wins! ' + player + ' beats ' + computer + '!';
+    else if (playerSelection === 'rock' && computerSelection === 'scissors' ||
+        playerSelection === 'scissors' && computerSelection === 'paper' ||
+        playerSelection === 'paper' && computerSelection === 'rock') {
+        playerScore++;
     }
-    else if (player === 'rock' && computer === 'paper' ||
-            player === 'scissors' && computer === 'rock' ||
-            player === 'paper' && computer === 'scissors') {
-        return 'Computer wins! ' + computer + ' beats ' + player + '!';
+    else if (playerSelection === 'rock' && computerSelection === 'paper' ||
+        playerSelection === 'scissors' && computerSelection === 'rock' ||
+        playerSelection === 'paper' && computerSelection === 'scissors') {
+        computerScore++;
+        }
+    score.textContent = "Player Score: " + playerScore + "\r\nComputer Score: " + computerScore + "\r\nTie Games: " + tieGames;
+    if(playerScore >= 5) {
+        if(playerScore == computerScore) {
+            score.textContent += "\r\nIt's a tie!"
+        }
+        else if (playerScore > computerScore) {
+            score.textContent += "\r\nYou win!"
+        }
+        else if(computerScore > playerScore) {
+            score.textContent += "\r\nYou lose!"
+        }
     }
-}
+    }
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    let tieGames = 0;
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt('rock, paper, or scissors?');
-        let computerSelection = computerPlay();
-        let string = gameResult(playerSelection.toLowerCase(), computerSelection.toLowerCase())
-        console.log(string);
-        if (string.charAt(0) === 'I') {
-            tieGames++;
-        }
-        else if (string.charAt(0) === 'P') {
-            playerScore++;
-        }
-        else if (string.charAt(0) === 'C') {
-            computerScore++;
-        }
-    }
-    console.log('Player Score: ' + playerScore);
-    console.log('Computer Score: ' + computerScore);
-    console.log('Tie Games: ' + tieGames);
-}
 
-game();
+rock.addEventListener("click", function(){playRound('rock');});
+paper.addEventListener('click', function(){playRound('paper');});
+scissors.addEventListener('click', function(){playRound('scissors');});
+
+score.textContent = "Player Score: " + playerScore + "\r\nComputer Score: " + computerScore + "\r\nTie Games: " + tieGames;
+

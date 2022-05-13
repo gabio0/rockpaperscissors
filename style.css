@@ -1,0 +1,8 @@
+button {
+    border-style: solid;
+    border-color: black;
+}
+
+.score {
+    white-space: pre;
+}
